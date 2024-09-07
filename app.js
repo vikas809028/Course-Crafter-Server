@@ -31,6 +31,11 @@ app.use("/api/v1/courses", courseRoutes);
 app.use("/api/v1/payments", paymentRoutes);
 app.use("/api/v1", miscRoutes);
 
+app.use("/", (req, res) => {
+  res.status(200).json({
+    data: "CourseCrafter server",
+  });
+});
 app.use("*", function (req, res) {
   res.status(404).send("OOPs! 404 Page NOt Found");
 });
