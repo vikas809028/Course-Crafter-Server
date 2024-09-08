@@ -286,7 +286,7 @@ const updateUser = async (req, res, next) => {
     const { id } = req.params;
 
     const user = await User.findById(id);
-
+    console.log("previous user", user);
     if (!user) {
       return next(new AppError("Invalid user id or user does not exist"));
     }
@@ -295,6 +295,7 @@ const updateUser = async (req, res, next) => {
       user.fullName = fullName;
     }
 
+    console.log("updated user", user);
     // Run only if user sends a file
     if (req.file) {
       // Deletes the old image uploaded by the user
@@ -317,6 +318,8 @@ const updateUser = async (req, res, next) => {
 
           // After successful upload remove the file from local storage
           fs.rm(`uploads/${req.file.filename}`);
+
+          console.log(user);
         }
       } catch (error) {
         return next(
